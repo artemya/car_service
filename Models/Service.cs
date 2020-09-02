@@ -1,11 +1,10 @@
-using System.Collections.Generic;
-
 namespace car_service.API.Models
 {
-    public class Category
+    public class Service
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public List<Service> Services { get; set; }
+        public float Price { get; set; }
+        public int CategoryId { get; set; }
     }
 }
