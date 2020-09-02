@@ -26,12 +26,6 @@ namespace car_service.API.Controllers
             return _serviceService.GetAllService();
         }
 
-        [HttpGet("{name}")]
-        public ActionResult<IEnumerable<Service>> GetServicesByName(string name)
-        {
-            return _serviceService.GetServicesByName(name);
-        }
-
         [HttpGet("{categoryId}/category")]
         public ActionResult<IEnumerable<Service>> GetServicesByCategoryId(int categoryId)
         {
