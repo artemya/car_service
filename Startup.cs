@@ -26,7 +26,7 @@ namespace car_service
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<CarServiceDbContext>(opt => opt.UseSqlite("Data Source=todoList.db"));
+            services.AddDbContext<CarServiceDbContext>(opt => opt.UseSqlite("Data Source=CarService.db"));
             services.AddMvc(option => option.EnableEndpointRouting = false).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
         }
 

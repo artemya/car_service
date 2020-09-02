@@ -9,6 +9,6 @@ namespace car_service.API.Models
         {
         }
 
-        public DbSet<CarServiceDbContext> Category { get; set; }
+        public DbSet<Category> Category { get; set; }
     }
 }
