@@ -29,6 +29,23 @@ namespace car_service.Migrations
                     b.ToTable("Category");
                 });
 
+            modelBuilder.Entity("car_service.API.Models.ExpendableMaterial", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.Property<float>("Price")
+                        .HasColumnType("REAL");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ExpendableMaterial");
+                });
+
             modelBuilder.Entity("car_service.API.Models.Service", b =>
                 {
                     b.Property<int>("Id")
@@ -49,23 +66,6 @@ namespace car_service.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Service");
-                });
-
-            modelBuilder.Entity("car_service.API.Models.Сonsumable", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("TEXT");
-
-                    b.Property<float>("Price")
-                        .HasColumnType("REAL");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Сonsumable");
                 });
 
             modelBuilder.Entity("car_service.API.Models.Service", b =>

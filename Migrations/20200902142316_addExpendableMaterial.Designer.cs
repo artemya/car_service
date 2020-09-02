@@ -8,8 +8,8 @@ using car_service.API.Models;
 namespace car_service.Migrations
 {
     [DbContext(typeof(CarServiceDbContext))]
-    [Migration("20200902140135_addСonsumable")]
-    partial class addСonsumable
+    [Migration("20200902142316_addExpendableMaterial")]
+    partial class addExpendableMaterial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -29,6 +29,23 @@ namespace car_service.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Category");
+                });
+
+            modelBuilder.Entity("car_service.API.Models.ExpendableMaterial", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.Property<float>("Price")
+                        .HasColumnType("REAL");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ExpendableMaterial");
                 });
 
             modelBuilder.Entity("car_service.API.Models.Service", b =>
@@ -51,23 +68,6 @@ namespace car_service.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Service");
-                });
-
-            modelBuilder.Entity("car_service.API.Models.Сonsumable", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("TEXT");
-
-                    b.Property<float>("Price")
-                        .HasColumnType("REAL");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Сonsumable");
                 });
 
             modelBuilder.Entity("car_service.API.Models.Service", b =>

@@ -2,12 +2,12 @@
 
 namespace car_service.Migrations
 {
-    public partial class addСonsumable : Migration
+    public partial class addExpendableMaterial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Сonsumable",
+                name: "ExpendableMaterial",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -17,14 +17,14 @@ namespace car_service.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Сonsumable", x => x.Id);
+                    table.PrimaryKey("PK_ExpendableMaterial", x => x.Id);
                 });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Сonsumable");
+                name: "ExpendableMaterial");
         }
     }
 }

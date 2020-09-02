@@ -1,6 +1,6 @@
 namespace car_service.API.Models
 {
-    public class Сonsumable
+    public class ExpendableMaterial
     {
         public int Id { get; set; }
         public string Name { get; set; }

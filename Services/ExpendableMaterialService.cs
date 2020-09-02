@@ -7,17 +7,17 @@ using System.Collections.Generic;
 
 namespace car_service.API.Services
 {
-    public class СonsumableService
+    public class ExpendableMaterialService
     {
         private readonly CarServiceDbContext _context;
-        public СonsumableService(CarServiceDbContext context) 
+        public ExpendableMaterialService(CarServiceDbContext context) 
         {
             _context = context;
         }
 
-        public ActionResult<List<Сonsumable>> GetAllCategory()
+        public ActionResult<List<ExpendableMaterial>> GetAllExpendableMaterial()
         {
-            return _context.Сonsumable.ToList();
+            return _context.ExpendableMaterial.ToList();
         }
     }
 }

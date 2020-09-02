@@ -29,6 +29,7 @@ namespace car_service
         {
             services.AddScoped<CategoryService>();
             services.AddScoped<ServiceService>();
+            services.AddScoped<ExpendableMaterialService>();
             services.AddDbContext<CarServiceDbContext>(opt => opt.UseSqlite("Data Source=CarService.db"));
             services.AddMvc(option => option.EnableEndpointRouting = false).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
         }
