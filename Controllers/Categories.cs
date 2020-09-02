@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using car_service.API.Models;
+using car_service.API.Services;
 
 namespace car_service.API.Controllers
 {
@@ -13,16 +14,17 @@ namespace car_service.API.Controllers
     [ApiController]
     public class CategoriesController : ControllerBase
     {
-        private readonly CarServiceDbContext _context;
-        public CategoriesController (CarServiceDbContext context)
+        private CategoryService _categoryService;
+        public CategoriesController (CategoryService categoryService)
         {
-            _context = context;
+            _categoryService = categoryService;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Category>>> GetAllCategory()
+        public ActionResult<List<Category>> Get()
         {
-            return await _context.Category.ToListAsync();
+            
+            return _categoryService.GetAllCategory();
         }
     }
 }

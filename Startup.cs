@@ -12,6 +12,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using car_service.API.Models;
+using car_service.API.Services;
 
 namespace car_service
 {
@@ -26,6 +27,7 @@ namespace car_service
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<CategoryService>();
             services.AddDbContext<CarServiceDbContext>(opt => opt.UseSqlite("Data Source=CarService.db"));
             services.AddMvc(option => option.EnableEndpointRouting = false).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
         }
