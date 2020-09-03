@@ -24,5 +24,11 @@ namespace car_service.API.Services
         {
             return await _context.ExpendableMaterial.FindAsync(id);
         }
+
+         public void AddMaterial(ExpendableMaterial expendableMaterial)
+        {
+            _context.ExpendableMaterial.Add(expendableMaterial);
+            _context.SaveChangesAsync();
+        }
     }
 }
