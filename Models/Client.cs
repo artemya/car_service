@@ -6,6 +6,7 @@ namespace car_service.API.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public Check Check { get; set; }
 
     }
 }
