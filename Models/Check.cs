@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 
 namespace car_service.API.Models
 {

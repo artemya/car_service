@@ -15,12 +15,12 @@ namespace car_service.API.Services
             _context = context;
         }
 
-        public ActionResult<List<Client>> GetAllClient()
+        public List<Client> GetAllClient()
         {
             return _context.Client.ToList();
         }
 
-        public async Task<ActionResult<Client>> GetById(int id)
+        public async Task<Client> GetById(int id)
         {
             return await _context.Client.FindAsync(id);
         }

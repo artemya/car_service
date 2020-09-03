@@ -1,8 +1,5 @@
 using car_service.API.Models;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 
 namespace car_service.API.Services
@@ -15,7 +12,7 @@ namespace car_service.API.Services
             _context = context;
         }
 
-        public ActionResult<List<CheckServiceItem>> GetAllCheckItem()
+        public List<CheckServiceItem> GetAllCheckItem()
         {
             return _context.CheckServiceItem.ToList();
         }

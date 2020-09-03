@@ -23,7 +23,6 @@ namespace car_service.API.Controllers
         [HttpGet]
         public ActionResult<List<Category>> Get()
         {
-            
             return _categoryService.GetAllCategory();
         }
 
