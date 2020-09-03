@@ -15,7 +15,16 @@ namespace car_service.API.Services
 
         public List<Check> GetAllCheck()
         {
-            return _context.Check.ToList();
+            return (from cl in _context.Client
+            join ch in _context.Check
+            on cl.Id equals ch.ClientId
+            select new Check()
+            {
+                Id = ch.Id,
+                Date = ch.Date,
+                ClientId = ch.ClientId,
+                ClientName = cl.Name,
+            }).ToList(); 
         }
 
         public async Task<Check> GetById(int id)

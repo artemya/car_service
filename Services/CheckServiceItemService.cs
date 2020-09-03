@@ -14,7 +14,16 @@ namespace car_service.API.Services
 
         public List<CheckServiceItem> GetAllCheckItem()
         {
-            return _context.CheckServiceItem.ToList();
+            return (from csi in _context.CheckServiceItem
+            join se in _context.Service on csi.ServiceId equals se.Id
+            select new CheckServiceItem()
+            {
+                Id = csi.Id,
+                ServiceName = se.Name,
+                ServicePrice = se.Price,
+                CheckId = csi.CheckId,
+                ServiceId = csi.ServiceId,
+            }).ToList(); 
         }
 
     }

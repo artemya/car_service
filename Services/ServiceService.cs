@@ -1,7 +1,9 @@
 using car_service.API.Models;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 
 namespace car_service.API.Services
 {
@@ -15,7 +17,18 @@ namespace car_service.API.Services
 
         public List<Service> GetAllService()
         {
-            return _context.Service.ToList();
+            
+            return (from c in _context.Category
+            join s in _context.Service
+            on c.Id equals s.CategoryId
+            select new Service()
+            {
+                Id = s.Id,
+                Name = s.Name,
+                Price = s.Price,
+                CategoryId = s.CategoryId,
+                CategoryName = c.Name
+            }).ToList(); 
         }
 
         public async Task<Service> GetById(int id)
