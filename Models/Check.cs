@@ -8,5 +8,6 @@ namespace car_service.API.Models
         public int Id { get; set; }
         public DateTime Date { get; set; }
         public int ClientId { get; set; }
+        public CheckServiceItem CheckServiceItem { get; set; }
     }
 }

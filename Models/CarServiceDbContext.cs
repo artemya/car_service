@@ -14,6 +14,7 @@ namespace car_service.API.Models
         public DbSet<ExpendableMaterial> ExpendableMaterial { get; set; }
         public DbSet<Client> Client { get; set; }
         public DbSet<Check> Check { get; set; }
+        public DbSet<CheckServiceItem> CheckServiceItem { get; set; }
 
     }
 }
