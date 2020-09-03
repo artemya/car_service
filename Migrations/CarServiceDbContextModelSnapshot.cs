@@ -59,13 +59,13 @@ namespace car_service.Migrations
                     b.Property<int>("CheckId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("ExpendableMaterialsId")
+                    b.Property<int>("ExpendableMaterialId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<float>("MaterialPrice")
-                        .HasColumnType("REAL");
-
                     b.HasKey("Id");
+
+                    b.HasIndex("ExpendableMaterialId")
+                        .IsUnique();
 
                     b.ToTable("CheckMaterialItem");
                 });
@@ -81,9 +81,6 @@ namespace car_service.Migrations
 
                     b.Property<int>("ServiceId")
                         .HasColumnType("INTEGER");
-
-                    b.Property<float>("ServicePrice")
-                        .HasColumnType("REAL");
 
                     b.HasKey("Id");
 
@@ -116,9 +113,6 @@ namespace car_service.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("CheckMaterialItemId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
 
@@ -126,8 +120,6 @@ namespace car_service.Migrations
                         .HasColumnType("REAL");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CheckMaterialItemId");
 
                     b.ToTable("ExpendableMaterial");
                 });
@@ -164,6 +156,15 @@ namespace car_service.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("car_service.API.Models.CheckMaterialItem", b =>
+                {
+                    b.HasOne("car_service.API.Models.ExpendableMaterial", null)
+                        .WithOne("CheckMaterialItem")
+                        .HasForeignKey("car_service.API.Models.CheckMaterialItem", "ExpendableMaterialId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("car_service.API.Models.CheckServiceItem", b =>
                 {
                     b.HasOne("car_service.API.Models.Check", null)
@@ -177,13 +178,6 @@ namespace car_service.Migrations
                         .HasForeignKey("car_service.API.Models.CheckServiceItem", "ServiceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("car_service.API.Models.ExpendableMaterial", b =>
-                {
-                    b.HasOne("car_service.API.Models.CheckMaterialItem", "CheckMaterialItem")
-                        .WithMany()
-                        .HasForeignKey("CheckMaterialItemId");
                 });
 
             modelBuilder.Entity("car_service.API.Models.Service", b =>

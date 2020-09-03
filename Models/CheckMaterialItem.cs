@@ -6,9 +6,10 @@ namespace car_service.API.Models
     {
         public int Id { get; set; }
         public int CheckId { get; set; }
-        public int ExpendableMaterialsId { get; set; }
+        public int ExpendableMaterialId { get; set; }
         [NotMapped]
         public string MaterialName { get; set; }
+        [NotMapped]
         public float MaterialPrice { get; set; }
     }
 }

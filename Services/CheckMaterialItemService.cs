@@ -15,12 +15,13 @@ namespace car_service.API.Services
         public List<CheckMaterialItem> GetAllCheckItem()
         {
             return (from cmi in _context.CheckMaterialItem
-            join em in _context.ExpendableMaterial on cmi.ExpendableMaterialsId equals em.Id
+            join em in _context.ExpendableMaterial on cmi.ExpendableMaterialId equals em.Id
             select new CheckMaterialItem()
             {
                 Id = cmi.Id,
                 MaterialName = em.Name,
                 MaterialPrice = em.Price,
+                ExpendableMaterialId = cmi.Id,
                 CheckId = cmi.CheckId,
             }).ToList(); 
         }

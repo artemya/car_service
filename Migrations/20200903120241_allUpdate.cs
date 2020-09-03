@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace car_service.Migrations
 {
-    public partial class addAllUpdate : Migration
+    public partial class allUpdate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -21,21 +21,6 @@ namespace car_service.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CheckMaterialItem",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    CheckId = table.Column<int>(nullable: false),
-                    ExpendableMaterialsId = table.Column<int>(nullable: false),
-                    MaterialPrice = table.Column<float>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CheckMaterialItem", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Client",
                 columns: table => new
                 {
@@ -46,6 +31,20 @@ namespace car_service.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Client", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ExpendableMaterial",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(nullable: true),
+                    Price = table.Column<float>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ExpendableMaterial", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -70,27 +69,6 @@ namespace car_service.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ExpendableMaterial",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(nullable: true),
-                    Price = table.Column<float>(nullable: false),
-                    CheckMaterialItemId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ExpendableMaterial", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ExpendableMaterial_CheckMaterialItem_CheckMaterialItemId",
-                        column: x => x.CheckMaterialItemId,
-                        principalTable: "CheckMaterialItem",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Check",
                 columns: table => new
                 {
@@ -111,14 +89,33 @@ namespace car_service.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CheckMaterialItem",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    CheckId = table.Column<int>(nullable: false),
+                    ExpendableMaterialId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CheckMaterialItem", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CheckMaterialItem_ExpendableMaterial_ExpendableMaterialId",
+                        column: x => x.ExpendableMaterialId,
+                        principalTable: "ExpendableMaterial",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "CheckServiceItem",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     CheckId = table.Column<int>(nullable: false),
-                    ServiceId = table.Column<int>(nullable: false),
-                    ServicePrice = table.Column<float>(nullable: false)
+                    ServiceId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -144,6 +141,12 @@ namespace car_service.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_CheckMaterialItem_ExpendableMaterialId",
+                table: "CheckMaterialItem",
+                column: "ExpendableMaterialId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_CheckServiceItem_CheckId",
                 table: "CheckServiceItem",
                 column: "CheckId",
@@ -156,11 +159,6 @@ namespace car_service.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_ExpendableMaterial_CheckMaterialItemId",
-                table: "ExpendableMaterial",
-                column: "CheckMaterialItemId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Service_CategoryId",
                 table: "Service",
                 column: "CategoryId",
@@ -169,6 +167,9 @@ namespace car_service.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "CheckMaterialItem");
+
             migrationBuilder.DropTable(
                 name: "CheckServiceItem");
 
@@ -180,9 +181,6 @@ namespace car_service.Migrations
 
             migrationBuilder.DropTable(
                 name: "Service");
-
-            migrationBuilder.DropTable(
-                name: "CheckMaterialItem");
 
             migrationBuilder.DropTable(
                 name: "Client");
