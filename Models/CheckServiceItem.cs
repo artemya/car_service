@@ -5,6 +5,5 @@ namespace car_service.API.Models
         public int Id { get; set; }
         public int CheckId { get; set; }
         public int ServiceId { get; set; }
-        public int ExpendableMaterialId { get; set; }
     }
 }

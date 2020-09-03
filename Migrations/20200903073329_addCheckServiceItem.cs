@@ -14,8 +14,7 @@ namespace car_service.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     CheckId = table.Column<int>(nullable: false),
-                    ServiceId = table.Column<int>(nullable: false),
-                    ExpendableMaterialId = table.Column<int>(nullable: false)
+                    ServiceId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -24,12 +23,6 @@ namespace car_service.Migrations
                         name: "FK_CheckServiceItem_Check_CheckId",
                         column: x => x.CheckId,
                         principalTable: "Check",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_CheckServiceItem_ExpendableMaterial_ExpendableMaterialId",
-                        column: x => x.ExpendableMaterialId,
-                        principalTable: "ExpendableMaterial",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -45,19 +38,13 @@ namespace car_service.Migrations
                 name: "IX_CheckServiceItem_CheckId",
                 table: "CheckServiceItem",
                 column: "CheckId",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_CheckServiceItem_ExpendableMaterialId",
-                table: "CheckServiceItem",
-                column: "ExpendableMaterialId",
-                unique: true);
+                unique: false);
 
             migrationBuilder.CreateIndex(
                 name: "IX_CheckServiceItem_ServiceId",
                 table: "CheckServiceItem",
                 column: "ServiceId",
-                unique: true);
+                unique: false);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

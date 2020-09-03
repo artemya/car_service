@@ -9,7 +9,7 @@ using car_service.API.Models;
 namespace car_service.Migrations
 {
     [DbContext(typeof(CarServiceDbContext))]
-    [Migration("20200903070827_addCheckServiceItem")]
+    [Migration("20200903073329_addCheckServiceItem")]
     partial class addCheckServiceItem
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -61,18 +61,12 @@ namespace car_service.Migrations
                     b.Property<int>("CheckId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("ExpendableMaterialId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<int>("ServiceId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CheckId")
-                        .IsUnique();
-
-                    b.HasIndex("ExpendableMaterialId")
                         .IsUnique();
 
                     b.HasIndex("ServiceId")
@@ -149,12 +143,6 @@ namespace car_service.Migrations
                     b.HasOne("car_service.API.Models.Check", null)
                         .WithOne("CheckServiceItem")
                         .HasForeignKey("car_service.API.Models.CheckServiceItem", "CheckId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("car_service.API.Models.ExpendableMaterial", null)
-                        .WithOne("CheckServiceItem")
-                        .HasForeignKey("car_service.API.Models.CheckServiceItem", "ExpendableMaterialId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
