@@ -19,5 +19,10 @@ namespace car_service.API.Services
         {
             return _context.ExpendableMaterial.ToList();
         }
+
+        public async Task<ActionResult<ExpendableMaterial>> GetById(int id)
+        {
+            return await _context.ExpendableMaterial.FindAsync(id);
+        }
     }
 }

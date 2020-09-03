@@ -26,5 +26,11 @@ namespace car_service.API.Controllers
             
             return _categoryService.GetAllCategory();
         }
+
+        [HttpGet("{id}/")]
+        public async Task<ActionResult<Category>> GetId(int id)
+        {
+            return await _categoryService.GetById(id);
+        }
     }
 }

@@ -24,5 +24,10 @@ namespace car_service.API.Services
         {
             return _context.Service.Where(x => x.CategoryId == categoryId).ToList();
         }
+
+        public async Task<ActionResult<Service>> GetById(int id)
+        {
+            return await _context.Service.FindAsync(id);
+        }
     }
 }

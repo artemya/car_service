@@ -26,6 +26,12 @@ namespace car_service.API.Controllers
             return _serviceService.GetAllService();
         }
 
+        [HttpGet("{id}/")]
+        public async Task<ActionResult<Service>> GetId(int id)
+        {
+            return await _serviceService.GetById(id);
+        }
+        
         [HttpGet("{categoryId}/category")]
         public ActionResult<IEnumerable<Service>> GetServicesByCategoryId(int categoryId)
         {

@@ -19,5 +19,10 @@ namespace car_service.API.Services
         {
             return _context.Category.ToList();
         }
+
+        public async Task<ActionResult<Category>> GetById(int id)
+        {
+            return await _context.Category.FindAsync(id);
+        }
     }
 }

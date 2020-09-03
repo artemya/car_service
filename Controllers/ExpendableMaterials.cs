@@ -14,16 +14,22 @@ namespace car_service.API.Controllers
     [ApiController]
     public class ExpendableMaterialsController : ControllerBase
     {
-        private ExpendableMaterialService _consumableService;
-        public ExpendableMaterialsController (ExpendableMaterialService consumableService)
+        private ExpendableMaterialService _expendableMaterialService;
+        public ExpendableMaterialsController (ExpendableMaterialService expendableMaterialService)
         {
-            _consumableService = consumableService;
+            _expendableMaterialService = expendableMaterialService;
         }
 
         [HttpGet]
         public ActionResult<List<ExpendableMaterial>> Get()
         {
-            return _consumableService.GetAllExpendableMaterial();
+            return _expendableMaterialService.GetAllExpendableMaterial();
+        }
+
+        [HttpGet("{id}/")]
+        public async Task<ActionResult<ExpendableMaterial>> GetId(int id)
+        {
+            return await _expendableMaterialService.GetById(id);
         }
     }
 }
