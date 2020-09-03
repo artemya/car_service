@@ -12,6 +12,7 @@ namespace car_service.API.Models
         public DbSet<Category> Category { get; set; }       
         public DbSet<Service> Service { get; set; }
         public DbSet<ExpendableMaterial> ExpendableMaterial { get; set; }
+        public DbSet<Client> Client { get; set; }
 
     }
 }
