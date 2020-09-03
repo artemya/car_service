@@ -15,7 +15,7 @@ namespace car_service.API.Services
             _context = context;
         }
 
-        public ActionResult<List<Check>> GetAllClient()
+        public ActionResult<List<Check>> GetAllCheck()
         {
             return _context.Check.ToList();
         }
