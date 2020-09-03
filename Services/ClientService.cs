@@ -24,5 +24,11 @@ namespace car_service.API.Services
         {
             return await _context.Client.FindAsync(id);
         }
+
+        public void AddClient(Client client)
+        {
+            _context.Client.Add(client);
+            _context.SaveChangesAsync();
+        }
     }
 }

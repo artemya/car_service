@@ -32,5 +32,12 @@ namespace car_service.API.Controllers
         {
             return await _clientService.GetById(id);
         }
+
+        [HttpPost]
+        public ActionResult<Client> CreateClient(Client client)
+        {
+            _clientService.AddClient(client);
+            return CreatedAtAction("GetClient", new { id = client.Id }, client);
+        }
     }
 }
