@@ -15,14 +15,20 @@ namespace car_service.API.Services
             _context = context;
         }
 
-        public ActionResult<List<ExpendableMaterial>> GetAllExpendableMaterial()
+        public List<ExpendableMaterial> GetAllExpendableMaterial()
         {
             return _context.ExpendableMaterial.ToList();
         }
 
-        public async Task<ActionResult<ExpendableMaterial>> GetById(int id)
+        public async Task<ExpendableMaterial> GetById(int id)
         {
             return await _context.ExpendableMaterial.FindAsync(id);
+        }
+
+         public void AddMaterial(ExpendableMaterial expendableMaterial)
+        {
+            _context.ExpendableMaterial.Add(expendableMaterial);
+            _context.SaveChangesAsync();
         }
     }
 }

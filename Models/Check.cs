@@ -1,5 +1,5 @@
 using System;
-using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace car_service.API.Models
 {
@@ -8,5 +8,9 @@ namespace car_service.API.Models
         public int Id { get; set; }
         public DateTime Date { get; set; }
         public int ClientId { get; set; }
+        public CheckServiceItem CheckServiceItem { get; set; }
+
+        [NotMapped]
+        public string ClientName { get; set; }
     }
 }

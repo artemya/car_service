@@ -31,5 +31,12 @@ namespace car_service.API.Controllers
         {
             return await _expendableMaterialService.GetById(id);
         }
+
+        [HttpPost]
+        public ActionResult<ExpendableMaterial> CreateMaterial(ExpendableMaterial expendableMaterial)
+        {
+            _expendableMaterialService.AddMaterial(expendableMaterial);
+            return CreatedAtAction("GetMaterial", new { id = expendableMaterial.Id }, expendableMaterial);
+        }
     }
 }

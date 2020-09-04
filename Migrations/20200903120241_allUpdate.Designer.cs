@@ -9,8 +9,8 @@ using car_service.API.Models;
 namespace car_service.Migrations
 {
     [DbContext(typeof(CarServiceDbContext))]
-    [Migration("20200903063658_addCheck")]
-    partial class addCheck
+    [Migration("20200903120241_allUpdate")]
+    partial class allUpdate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -50,6 +50,49 @@ namespace car_service.Migrations
                         .IsUnique();
 
                     b.ToTable("Check");
+                });
+
+            modelBuilder.Entity("car_service.API.Models.CheckMaterialItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CheckId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ExpendableMaterialId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ExpendableMaterialId")
+                        .IsUnique();
+
+                    b.ToTable("CheckMaterialItem");
+                });
+
+            modelBuilder.Entity("car_service.API.Models.CheckServiceItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CheckId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ServiceId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CheckId")
+                        .IsUnique();
+
+                    b.HasIndex("ServiceId")
+                        .IsUnique();
+
+                    b.ToTable("CheckServiceItem");
                 });
 
             modelBuilder.Entity("car_service.API.Models.Client", b =>
@@ -100,7 +143,8 @@ namespace car_service.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId");
+                    b.HasIndex("CategoryId")
+                        .IsUnique();
 
                     b.ToTable("Service");
                 });
@@ -114,11 +158,35 @@ namespace car_service.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("car_service.API.Models.CheckMaterialItem", b =>
+                {
+                    b.HasOne("car_service.API.Models.ExpendableMaterial", null)
+                        .WithOne("CheckMaterialItem")
+                        .HasForeignKey("car_service.API.Models.CheckMaterialItem", "ExpendableMaterialId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("car_service.API.Models.CheckServiceItem", b =>
+                {
+                    b.HasOne("car_service.API.Models.Check", null)
+                        .WithOne("CheckServiceItem")
+                        .HasForeignKey("car_service.API.Models.CheckServiceItem", "CheckId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("car_service.API.Models.Service", null)
+                        .WithOne("CheckServiceItem")
+                        .HasForeignKey("car_service.API.Models.CheckServiceItem", "ServiceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("car_service.API.Models.Service", b =>
                 {
                     b.HasOne("car_service.API.Models.Category", null)
-                        .WithMany("Services")
-                        .HasForeignKey("CategoryId")
+                        .WithOne("Services")
+                        .HasForeignKey("car_service.API.Models.Service", "CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

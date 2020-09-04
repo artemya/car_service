@@ -1,8 +1,6 @@
 using car_service.API.Models;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 
 namespace car_service.API.Services
@@ -15,14 +13,29 @@ namespace car_service.API.Services
             _context = context;
         }
 
-        public ActionResult<List<Check>> GetAllCheck()
+        public List<Check> GetAllCheck()
         {
-            return _context.Check.ToList();
+            return (from cl in _context.Client
+            join ch in _context.Check
+            on cl.Id equals ch.ClientId
+            select new Check()
+            {
+                Id = ch.Id,
+                Date = ch.Date,
+                ClientId = ch.ClientId,
+                ClientName = cl.Name,
+            }).ToList(); 
         }
 
-        public async Task<ActionResult<Check>> GetById(int id)
+        public async Task<Check> GetById(int id)
         {
             return await _context.Check.FindAsync(id);
+        }
+
+        public void AddCheck(Check check)
+        {
+            _context.Check.Add(check);
+            _context.SaveChangesAsync();
         }
     }
 }

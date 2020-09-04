@@ -33,7 +33,7 @@ namespace car_service.API.Controllers
         }
         
         [HttpGet("{categoryId}/category")]
-        public ActionResult<IEnumerable<Service>> GetServicesByCategoryId(int categoryId)
+        public ActionResult<List<Service>> GetServicesByCategoryId(int categoryId)
         {
             return _serviceService.GetServicesByCategoryId(categoryId);
         }

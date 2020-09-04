@@ -1,8 +1,6 @@
 using car_service.API.Models;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 
 namespace car_service.API.Services
@@ -15,12 +13,12 @@ namespace car_service.API.Services
             _context = context;
         }
 
-        public ActionResult<List<Category>> GetAllCategory()
+        public List<Category> GetAllCategory()
         {
             return _context.Category.ToList();
         }
 
-        public async Task<ActionResult<Category>> GetById(int id)
+        public async Task<Category> GetById(int id)
         {
             return await _context.Category.FindAsync(id);
         }
