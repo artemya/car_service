@@ -28,7 +28,7 @@ namespace car_service.API.Controllers
         }
 
         [HttpPost]
-        public ActionResult<Check> CreateCheckMaterial(CheckMaterialItem checkMaterialItem)
+        public ActionResult<CheckMaterialItem> CreateCheckMaterial(CheckMaterialItem checkMaterialItem)
         {
             _checkMaterialItemService.AddCheckMaterial(checkMaterialItem);
             return CreatedAtAction("GetMaterial", new { id = checkMaterialItem.Id }, checkMaterialItem);

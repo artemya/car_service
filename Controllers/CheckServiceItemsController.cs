@@ -27,5 +27,12 @@ namespace car_service.API.Controllers
             return _checkServiceItemService.GetAllCheckItem();
         }
 
+        [HttpPost]
+        public ActionResult<CheckServiceItem> CreatService(CheckServiceItem checkServiceItem)
+        {
+            _checkServiceItemService.AddCheckService(checkServiceItem);
+            return CreatedAtAction("GetMaterial", new { id = checkServiceItem.Id }, checkServiceItem);
+        }
+
     }
 }

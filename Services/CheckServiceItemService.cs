@@ -26,5 +26,10 @@ namespace car_service.API.Services
             }).ToList(); 
         }
 
+        public void AddCheckService(CheckServiceItem checkServiceItem)
+        {
+            _context.CheckServiceItem.Add(checkServiceItem);
+            _context.SaveChangesAsync();
+        }
     }
 }
