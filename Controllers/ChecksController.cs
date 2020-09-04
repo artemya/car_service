@@ -32,5 +32,12 @@ namespace car_service.API.Controllers
         {
             return await _checkService.GetById(id);
         }
+
+        [HttpPost]
+        public ActionResult<Check> CreateMaterial(Check check)
+        {
+            _checkService.AddCheck(check);
+            return CreatedAtAction("GetMaterial", new { id = check.Id }, check);
+        }
     }
 }
