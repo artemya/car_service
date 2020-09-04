@@ -138,31 +138,31 @@ namespace car_service.Migrations
                 name: "IX_Check_ClientId",
                 table: "Check",
                 column: "ClientId",
-                unique: true);
+                unique: false);
 
             migrationBuilder.CreateIndex(
                 name: "IX_CheckMaterialItem_ExpendableMaterialId",
                 table: "CheckMaterialItem",
                 column: "ExpendableMaterialId",
-                unique: true);
+                unique: false);
 
             migrationBuilder.CreateIndex(
                 name: "IX_CheckServiceItem_CheckId",
                 table: "CheckServiceItem",
                 column: "CheckId",
-                unique: true);
+                unique: false);
 
             migrationBuilder.CreateIndex(
                 name: "IX_CheckServiceItem_ServiceId",
                 table: "CheckServiceItem",
                 column: "ServiceId",
-                unique: true);
+                unique: false);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Service_CategoryId",
                 table: "Service",
                 column: "CategoryId",
-                unique: true);
+                unique: false);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

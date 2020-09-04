@@ -9,7 +9,7 @@ using car_service.API.Models;
 namespace car_service.Migrations
 {
     [DbContext(typeof(CarServiceDbContext))]
-    [Migration("20200903120241_allUpdate")]
+    [Migration("20200904071454_allUpdate")]
     partial class allUpdate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
