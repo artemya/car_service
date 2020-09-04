@@ -32,7 +32,7 @@ namespace car_service.API.Services
             return await _context.Check.FindAsync(id);
         }
 
-         public void AddCheck(Check check)
+        public void AddCheck(Check check)
         {
             _context.Check.Add(check);
             _context.SaveChangesAsync();

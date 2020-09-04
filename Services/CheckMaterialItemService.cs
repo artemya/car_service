@@ -26,5 +26,10 @@ namespace car_service.API.Services
             }).ToList(); 
         }
 
+        public void AddCheckMaterial(CheckMaterialItem checkMaterialItem)
+        {
+            _context.CheckMaterialItem.Add(checkMaterialItem);
+            _context.SaveChangesAsync();
+        }
     }
 }
