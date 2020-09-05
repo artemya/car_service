@@ -12,5 +12,9 @@ namespace car_service.API.Models
 
         [NotMapped]
         public string ClientName { get; set; }
+        [NotMapped]
+        public string MaterialName { get; set; }
+        [NotMapped]
+        public float MaterialPrice { get; set; }
     }
 }

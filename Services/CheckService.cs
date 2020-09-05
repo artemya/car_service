@@ -37,5 +37,20 @@ namespace car_service.API.Services
             _context.Check.Add(check);
             _context.SaveChangesAsync();
         }
+
+        public List<Check> GetAllWithMaterial()
+        {
+            return (from ch in _context.Check
+            join cm in _context.CheckMaterialItem on ch.Id equals cm.CheckId
+            join m in _context.ExpendableMaterial on cm.ExpendableMaterialId equals m.Id
+            select new Check()
+            {
+                Id = ch.Id,
+                Date = ch.Date,
+                ClientId = ch.ClientId,
+                MaterialName = m.Name,
+                MaterialPrice = m.Price
+            }).ToList(); 
+        }
     }
 }

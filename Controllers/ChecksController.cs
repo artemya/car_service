@@ -20,11 +20,16 @@ namespace car_service.API.Controllers
             _checkService = checkService;
         }
 
+        // [HttpGet]
+        // public ActionResult<List<Check>> Get()
+        // {
+        //     return _checkService.GetAllCheck();
+        // }
+
         [HttpGet]
         public ActionResult<List<Check>> Get()
         {
-            
-            return _checkService.GetAllCheck();
+            return _checkService.GetAllWithMaterial();
         }
 
         [HttpGet("{id}/")]
