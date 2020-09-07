@@ -49,22 +49,31 @@ namespace car_service.API.Services
             select new Check()
             {
                 Id = ch.Id,
-                Date = ch.Date,
-                ClientId = ch.ClientId,
+                // Date = ch.Date,
+                // ClientId = ch.ClientId,
                 MaterialName = m.Name,
                 MaterialPrice = m.Price
             }).ToList();
-            return Sum(id, check);
+            return Summing(id, check);
             
         }
 
-        public List<CheckSum> Sum(int id, List<Check> check)
+        public List<CheckSum> Summing(int id, List<Check> check)
         {
             List<CheckSum> checkSum = new List<CheckSum>();
-            float total = check.Sum(item => item.MaterialPrice) + check.Sum(item => item.ServicePrice);
+            float sumMaterial = check.Sum(item => item.MaterialPrice);
+            float sumService = check.Sum(item => item.ServicePrice);
+            float total =  sumMaterial + sumService; 
+            List<string> materialName = new List<string>();
+            List<string> serviceName = new List<string>();
+            foreach(var ch in check)
+            {
+                materialName.Add(ch.MaterialName);
+                serviceName.Add(ch.ServiceName);
+            }
             if(total != 0)
             {
-                checkSum.Add(new CheckSum() {CheckId = id, Sum = total});
+                checkSum.Add(new CheckSum() {CheckId = id, Sum = total, checkMaterial = materialName, checkService = serviceName});
                 return checkSum;
             }
             else
@@ -76,18 +85,36 @@ namespace car_service.API.Services
         {
             
             List<Check> check = (from ch in _context.Check
-            join cm in _context.CheckServiceItem on ch.Id equals cm.CheckId
-            join m in _context.Service on cm.ServiceId equals m.Id
+            join cs in _context.CheckServiceItem on ch.Id equals cs.CheckId
+            join s in _context.Service on cs.ServiceId equals s.Id
             where id == ch.Id
             select new Check()
             {
                 Id = ch.Id,
-                Date = ch.Date,
-                ClientId = ch.ClientId,
-                ServiceName = m.Name,
-                ServicePrice = m.Price
+                // Date = ch.Date,
+                // ClientId = ch.ClientId,
+                ServiceName = s.Name,
+                ServicePrice = s.Price
             }).ToList();
-            return Sum(id, check);
+            return Summing(id, check);
+        }
+
+        public List<CheckSum> GetAll(int id)
+        {
+            
+            return SumAll(id);
+        }
+
+        public List<CheckSum> SumAll(int id)
+        {
+            List<CheckSum> material = GetAllWithMaterial(id);
+            List<CheckSum> service = GetAllWithService(id);
+            List<CheckSum> all = material.Concat(service).ToList();
+            float total = all.Sum(item => item.Sum);
+            List<CheckSum> checkSum = new List<CheckSum>();
+
+            checkSum.Add(new CheckSum() {CheckId = id, Sum = total});
+            return checkSum;
         }
     }
 }

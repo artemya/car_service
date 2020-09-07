@@ -38,6 +38,12 @@ namespace car_service.API.Controllers
             return _checkService.GetAllWithService(id);
         }
 
+        [HttpGet("{id}/all")]
+        public ActionResult<List<CheckSum>> GetAllWithAll(int id)
+        {
+            return _checkService.GetAll(id);
+        }
+
         [HttpGet("{id}/")]
         public async Task<ActionResult<Check>> GetId(int id)
         {
