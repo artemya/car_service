@@ -31,5 +31,12 @@ namespace car_service.API.Controllers
         {
             return await _categoryService.GetById(id);
         }
+
+        [HttpPut("{id}/")]
+        public IActionResult PutTaskItem(int id, Category category)
+        {
+            _categoryService.PutCategory(id, category);
+            return NoContent();
+        }
     }
 }

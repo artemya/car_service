@@ -3,6 +3,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 
 namespace car_service.API.Services
 {
@@ -44,6 +45,12 @@ namespace car_service.API.Services
         {
             _context.Service.Add(service);
             _context.SaveChangesAsync();
+        }
+
+        public async void PutService(int id, Service service)
+        {
+            _context.Entry(service).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
         }
     }
 }

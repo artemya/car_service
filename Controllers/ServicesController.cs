@@ -44,5 +44,12 @@ namespace car_service.API.Controllers
             _serviceService.AddService(service);
             return CreatedAtAction("GetClient", new { id = service.Id }, service);
         }
+
+        [HttpPut("{id}/")]
+        public IActionResult PutTaskItem(int id, Service service)
+        {
+            _serviceService.PutService(id, service);
+            return NoContent();
+        }
     }
 }
