@@ -12,19 +12,19 @@ namespace car_service.API.Services
             _context = context;
         }
 
-        public List<CheckServiceItem> GetAllCheckItem()
-        {
-            return (from csi in _context.CheckServiceItem
-            join se in _context.Service on csi.ServiceId equals se.Id
-            select new CheckServiceItem()
-            {
-                Id = csi.Id,
-                ServiceName = se.Name,
-                ServicePrice = se.Price,
-                CheckId = csi.CheckId,
-                ServiceId = csi.ServiceId,
-            }).ToList(); 
-        }
+        // public List<CheckServiceItem> GetAllCheckItem()
+        // {
+        //     return (from csi in _context.CheckServiceItem
+        //     join se in _context.Service on csi.ServiceId equals se.Id
+        //     select new CheckServiceItem()
+        //     {
+        //         Id = csi.Id,
+        //         ServiceName = se.Name,
+        //         ServicePrice = se.Price,
+        //         CheckId = csi.CheckId,
+        //         ServiceId = csi.ServiceId,
+        //     }).ToList(); 
+        // }
 
         public void AddCheckService(CheckServiceItem checkServiceItem)
         {

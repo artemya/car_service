@@ -20,18 +20,31 @@ namespace car_service.API.Controllers
             _checkService = checkService;
         }
 
-        [HttpGet]
-        public ActionResult<List<Check>> Get()
+        [HttpGet("{id}/clients")]
+        public ActionResult<List<CheckClient>> GetByClientId(int id)
         {
-            
-            return _checkService.GetAllCheck();
+            return _checkService.GetByClientId(id);
         }
 
-        [HttpGet("{id}/")]
-        public async Task<ActionResult<Check>> GetId(int id)
+        // [HttpGet("{id}/materials")]
+        // public ActionResult<List<CheckSum>> GetAllWithMaterial(int id)
+        // {
+        //     return _checkService.GetAllWithMaterial(id);
+        // }
+
+        // [HttpGet("{id}/services")]
+        // public ActionResult<List<CheckSum>> GetAllWithServices(int id)
+        // {
+        //     return _checkService.GetAllWithService(id);
+        // }
+
+        [HttpGet("{id}/all")]
+        public ActionResult<List<CheckSum>> GetAllWithAll(int id)
         {
-            return await _checkService.GetById(id);
+            return _checkService.GetAll(id);
         }
+
+
 
         [HttpPost]
         public ActionResult<Check> CreateMaterial(Check check)
