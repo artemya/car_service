@@ -84,7 +84,6 @@ namespace car_service.API.Services
             for(int i = 0; i < temp.Count(); i++)
             {
                 total = check.Where(item => item.CategoryId == temp[i]).Sum(item => item.ServicePrice);
-                Console.WriteLine(total);
                 sumCategory.Add(new CategorySum() {CategoryName = check.Find(x => Convert.ToInt32(x.CategoryId) == temp[i]).CategoryName , Sum = total});
             }
 

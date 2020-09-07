@@ -10,7 +10,7 @@ using car_service.API.Services;
 
 namespace car_service.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/services/items")]
     [ApiController]
     public class CheckServiceItemsController : ControllerBase
     {
@@ -20,12 +20,6 @@ namespace car_service.API.Controllers
             _checkServiceItemService = checkServiceItemService;
         }
 
-        // [HttpGet]
-        // public ActionResult<List<CheckServiceItem>> Get()
-        // {
-            
-        //     return _checkServiceItemService.GetAllCheckItem();
-        // }
 
         [HttpPost]
         public ActionResult<CheckServiceItem> CreatService(CheckServiceItem checkServiceItem)
