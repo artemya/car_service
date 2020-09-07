@@ -20,7 +20,7 @@ namespace car_service.API.Controllers
             _checkService = checkService;
         }
 
-        [HttpGet("{id}/clients")]
+        [HttpGet("clients/{id}")]
         public ActionResult<List<CheckClient>> GetByClientId(int id)
         {
             return _checkService.GetByClientId(id);
