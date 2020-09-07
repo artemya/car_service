@@ -20,12 +20,12 @@ namespace car_service.API.Controllers
             _checkServiceItemService = checkServiceItemService;
         }
 
-        [HttpGet]
-        public ActionResult<List<CheckServiceItem>> Get()
-        {
+        // [HttpGet]
+        // public ActionResult<List<CheckServiceItem>> Get()
+        // {
             
-            return _checkServiceItemService.GetAllCheckItem();
-        }
+        //     return _checkServiceItemService.GetAllCheckItem();
+        // }
 
         [HttpPost]
         public ActionResult<CheckServiceItem> CreatService(CheckServiceItem checkServiceItem)

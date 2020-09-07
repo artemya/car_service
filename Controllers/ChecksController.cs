@@ -26,17 +26,17 @@ namespace car_service.API.Controllers
             return _checkService.GetAllCheck();
         }
 
-        [HttpGet("{id}/materials")]
-        public ActionResult<List<CheckSum>> GetAllWithMaterial(int id)
-        {
-            return _checkService.GetAllWithMaterial(id);
-        }
+        // [HttpGet("{id}/materials")]
+        // public ActionResult<List<CheckSum>> GetAllWithMaterial(int id)
+        // {
+        //     return _checkService.GetAllWithMaterial(id);
+        // }
 
-        [HttpGet("{id}/services")]
-        public ActionResult<List<CheckSum>> GetAllWithServices(int id)
-        {
-            return _checkService.GetAllWithService(id);
-        }
+        // [HttpGet("{id}/services")]
+        // public ActionResult<List<CheckSum>> GetAllWithServices(int id)
+        // {
+        //     return _checkService.GetAllWithService(id);
+        // }
 
         [HttpGet("{id}/all")]
         public ActionResult<List<CheckSum>> GetAllWithAll(int id)

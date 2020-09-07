@@ -49,8 +49,6 @@ namespace car_service.API.Services
             select new Check()
             {
                 Id = ch.Id,
-                // Date = ch.Date,
-                // ClientId = ch.ClientId,
                 MaterialName = m.Name,
                 MaterialPrice = m.Price
             }).ToList();
@@ -91,8 +89,6 @@ namespace car_service.API.Services
             select new Check()
             {
                 Id = ch.Id,
-                // Date = ch.Date,
-                // ClientId = ch.ClientId,
                 ServiceName = s.Name,
                 ServicePrice = s.Price
             }).ToList();
@@ -111,10 +107,35 @@ namespace car_service.API.Services
             List<CheckSum> service = GetAllWithService(id);
             List<CheckSum> all = material.Concat(service).ToList();
             float total = all.Sum(item => item.Sum);
-            List<CheckSum> checkSum = new List<CheckSum>();
+            if(total != 0)
+            {
+                List<CheckSum> checkSum = new List<CheckSum>();
+                List<string> materialName = new List<string>();
+                List<string> serviceName = new List<string>();
+                foreach(var mt in material)
+                {
+                    foreach(var chmt in mt.checkMaterial)
+                    {
+                        materialName.Add(chmt);
+                    }
+                }
 
-            checkSum.Add(new CheckSum() {CheckId = id, Sum = total});
-            return checkSum;
+                foreach(var sr in service)
+                {
+                    
+                    foreach(var chs in sr.checkService)
+                    {
+                        serviceName.Add(chs);
+                    }
+                }
+
+                checkSum.Add(new CheckSum() {CheckId = id, Sum = total, checkMaterial = materialName, checkService = serviceName});
+                return checkSum;
+            }
+            else
+            {
+                return new List<CheckSum>();
+            }
         }
     }
 }
