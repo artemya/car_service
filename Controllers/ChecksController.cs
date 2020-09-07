@@ -44,6 +44,11 @@ namespace car_service.API.Controllers
             return _checkService.GetAll(id);
         }
 
+        [HttpGet("{id}/cat")]
+        public ActionResult<List<CategorySum>> GetCheckByCategory(int id)
+        {
+            return _checkService.GetCheckByCategory(id);
+        }
 
 
         [HttpPost]

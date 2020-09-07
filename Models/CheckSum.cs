@@ -14,5 +14,8 @@ namespace car_service.API.Models
         public List<string> checkMaterial { get; set; }
         [NotMapped]
         public List<string> checkService { get; set; }
+        [NotMapped]
+        public List<CategorySum> categoryCheck { get; set; }
+
     }
 }

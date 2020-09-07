@@ -52,6 +52,46 @@ namespace car_service.API.Services
             return Summing(id, check);
         }
 
+        public List<CategorySum> GetCheckByCategory(int id)
+        {
+            List<CategoryCheck> check = (from ch in _context.Check
+            join cs in _context.CheckServiceItem on ch.Id equals cs.CheckId
+            join s in _context.Service on cs.ServiceId equals s.Id
+            join c in _context.Category on s.CategoryId equals c.Id
+            where id == ch.Id
+            select new CategoryCheck()
+            {
+                Id = ch.Id,
+                ServicePrice = s.Price,
+                CategoryId = c.Id,
+                CategoryName = c.Name
+
+            }).ToList();
+            return SumCategory(id, check);
+        }
+
+        public List<CategorySum> SumCategory(int id, List<CategoryCheck> check)
+        {
+            List<int> temp = new List<int>(); 
+            List<CategorySum> sumCategory = new List<CategorySum>();
+            float total = 0; 
+            foreach(var ch in check)
+            {
+                temp.Add(ch.CategoryId);
+            }
+
+            temp = temp.Distinct().ToList();
+
+            for(int i = 0; i < temp.Count(); i++)
+            {
+                total = check.Where(item => item.CategoryId == temp[i]).Sum(item => item.ServicePrice);
+                Console.WriteLine(total);
+                sumCategory.Add(new CategorySum() {CategoryName = check.Find(x => Convert.ToInt32(x.CategoryId) == temp[i]).CategoryName , Sum = total});
+            }
+
+            return sumCategory;
+        }
+
         public List<CheckSum> GetAllWithService(int id)
         {
             
@@ -102,6 +142,7 @@ namespace car_service.API.Services
             List<CheckSum> material = GetAllWithMaterial(id);
             List<CheckSum> service = GetAllWithService(id);
             List<CheckSum> all = material.Concat(service).ToList();
+            List<CategorySum> category = GetCheckByCategory(id);
             float total = all.Sum(item => item.Sum);
             if(total != 0)
             {
@@ -125,7 +166,7 @@ namespace car_service.API.Services
                     }
                 }
 
-                checkSum.Add(new CheckSum() {CheckId = id, Sum = total, checkMaterial = materialName, checkService = serviceName});
+                checkSum.Add(new CheckSum() {CheckId = id, Sum = total, checkMaterial = materialName, checkService = serviceName, categoryCheck = category});
                 return checkSum;
             }
             else
