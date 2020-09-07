@@ -40,5 +40,11 @@ namespace car_service.API.Services
         {
             return _context.Service.Where(x => x.CategoryId == categoryId).ToList();
         }
+
+        public void AddService(Service service)
+        {
+            _context.Service.Add(service);
+            _context.SaveChangesAsync();
+        }
     }
 }
