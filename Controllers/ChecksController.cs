@@ -27,7 +27,7 @@ namespace car_service.API.Controllers
         }
 
 
-        [HttpGet("{id}/all")]
+        [HttpGet("{id}/")]
         public ActionResult<List<CheckSum>> GetAllWithAll(int id)
         {
             return _checkService.GetAll(id);

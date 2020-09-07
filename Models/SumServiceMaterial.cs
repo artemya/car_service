@@ -2,11 +2,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace car_service.API.Models
 {
-    public class CategorySum
+    public class SumServiceMaterial
     {
         [NotMapped]
-        public string CategoryName { get; set; }
+        public string Name { get; set; }
         [NotMapped]
-        public float Sum { get; set; }
+        public float Price { get; set; }
     }
 }

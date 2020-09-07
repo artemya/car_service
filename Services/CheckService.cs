@@ -113,12 +113,12 @@ namespace car_service.API.Services
             float sumMaterial = check.Sum(item => item.MaterialPrice);
             float sumService = check.Sum(item => item.ServicePrice);
             float total =  sumMaterial + sumService; 
-            List<string> materialName = new List<string>();
-            List<string> serviceName = new List<string>();
+            List<SumServiceMaterial> materialName = new List<SumServiceMaterial>();
+            List<SumServiceMaterial> serviceName = new List<SumServiceMaterial>();
             foreach(var ch in check)
             {
-                materialName.Add(ch.MaterialName);
-                serviceName.Add(ch.ServiceName);
+                materialName.Add(new SumServiceMaterial() { Name = ch.MaterialName, Price = ch.MaterialPrice } );
+                serviceName.Add(new SumServiceMaterial() { Name = ch.ServiceName, Price = ch.ServicePrice } );
             }
             if(total != 0)
             {
@@ -146,8 +146,8 @@ namespace car_service.API.Services
             if(total != 0)
             {
                 List<CheckSum> checkSum = new List<CheckSum>();
-                List<string> materialName = new List<string>();
-                List<string> serviceName = new List<string>();
+                List<SumServiceMaterial> materialName = new List<SumServiceMaterial>();
+                List<SumServiceMaterial> serviceName = new List<SumServiceMaterial>();
                 foreach(var mt in material)
                 {
                     foreach(var chmt in mt.checkMaterial)

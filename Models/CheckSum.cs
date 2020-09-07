@@ -11,9 +11,9 @@ namespace car_service.API.Models
         [NotMapped]
         public float Sum { get; set; }
         [NotMapped]
-        public List<string> checkMaterial { get; set; }
+        public List<SumServiceMaterial> checkMaterial { get; set; }
         [NotMapped]
-        public List<string> checkService { get; set; }
+        public List<SumServiceMaterial> checkService { get; set; }
         [NotMapped]
         public List<CategorySum> categoryCheck { get; set; }
 
