@@ -54,8 +54,14 @@ namespace car_service.API.Services
                 MaterialName = m.Name,
                 MaterialPrice = m.Price
             }).ToList();
+            return Sum(id, check);
+            
+        }
+
+        public List<CheckSum> Sum(int id, List<Check> check)
+        {
             List<CheckSum> checkSum = new List<CheckSum>();
-            float total = check.Sum(item => item.MaterialPrice);
+            float total = check.Sum(item => item.MaterialPrice) + check.Sum(item => item.ServicePrice);
             if(total != 0)
             {
                 checkSum.Add(new CheckSum() {CheckId = id, Sum = total});
@@ -65,6 +71,23 @@ namespace car_service.API.Services
             {
                 return new List<CheckSum>();
             }
+        }
+        public List<CheckSum> GetAllWithService(int id)
+        {
+            
+            List<Check> check = (from ch in _context.Check
+            join cm in _context.CheckServiceItem on ch.Id equals cm.CheckId
+            join m in _context.Service on cm.ServiceId equals m.Id
+            where id == ch.Id
+            select new Check()
+            {
+                Id = ch.Id,
+                Date = ch.Date,
+                ClientId = ch.ClientId,
+                ServiceName = m.Name,
+                ServicePrice = m.Price
+            }).ToList();
+            return Sum(id, check);
         }
     }
 }
