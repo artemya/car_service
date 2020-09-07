@@ -1,4 +1,5 @@
 using car_service.API.Models;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
@@ -38,11 +39,13 @@ namespace car_service.API.Services
             _context.SaveChangesAsync();
         }
 
-        public List<Check> GetAllWithMaterial()
+        public List<CheckSum> GetAllWithMaterial(int id)
         {
-            return (from ch in _context.Check
+            
+            List<Check> check = (from ch in _context.Check
             join cm in _context.CheckMaterialItem on ch.Id equals cm.CheckId
             join m in _context.ExpendableMaterial on cm.ExpendableMaterialId equals m.Id
+            where id == ch.Id
             select new Check()
             {
                 Id = ch.Id,
@@ -50,7 +53,18 @@ namespace car_service.API.Services
                 ClientId = ch.ClientId,
                 MaterialName = m.Name,
                 MaterialPrice = m.Price
-            }).ToList(); 
+            }).ToList();
+            List<CheckSum> checkSum = new List<CheckSum>();
+            float total = check.Sum(item => item.MaterialPrice);
+            if(total != 0)
+            {
+                checkSum.Add(new CheckSum() {CheckId = id, Sum = total});
+                return checkSum;
+            }
+            else
+            {
+                return new List<CheckSum>();
+            }
         }
     }
 }
