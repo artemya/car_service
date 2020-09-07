@@ -20,10 +20,10 @@ namespace car_service.API.Controllers
             _checkService = checkService;
         }
 
-        [HttpGet]
-        public ActionResult<List<Check>> Get()
+        [HttpGet("{id}/clients")]
+        public ActionResult<List<CheckClient>> GetByClientId(int id)
         {
-            return _checkService.GetAllCheck();
+            return _checkService.GetByClientId(id);
         }
 
         // [HttpGet("{id}/materials")]
@@ -44,11 +44,7 @@ namespace car_service.API.Controllers
             return _checkService.GetAll(id);
         }
 
-        [HttpGet("{id}/")]
-        public async Task<ActionResult<Check>> GetId(int id)
-        {
-            return await _checkService.GetById(id);
-        }
+
 
         [HttpPost]
         public ActionResult<Check> CreateMaterial(Check check)

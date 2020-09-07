@@ -14,24 +14,22 @@ namespace car_service.API.Services
             _context = context;
         }
 
-        public List<Check> GetAllCheck()
+        public List<CheckClient> GetByClientId(int id)
         {
-            return (from cl in _context.Client
-            join ch in _context.Check
-            on cl.Id equals ch.ClientId
-            select new Check()
-            {
-                Id = ch.Id,
-                Date = ch.Date,
-                ClientId = ch.ClientId,
-                ClientName = cl.Name,
-            }).ToList(); 
+            var result = (from cl in _context.Client
+            join ch in _context.Check on cl.Id equals ch.ClientId
+            where id == ch.ClientId
+                select new CheckClient()
+                { 
+                    Id = ch.Id,
+                    Date = ch.Date,
+                    ClientId = ch.ClientId,
+                    ClientName = cl.Name,
+                }).ToList();
+                
+             return result;
         }
 
-        public async Task<Check> GetById(int id)
-        {
-            return await _context.Check.FindAsync(id);
-        }
 
         public void AddCheck(Check check)
         {
@@ -41,7 +39,6 @@ namespace car_service.API.Services
 
         public List<CheckSum> GetAllWithMaterial(int id)
         {
-            
             List<Check> check = (from ch in _context.Check
             join cm in _context.CheckMaterialItem on ch.Id equals cm.CheckId
             join m in _context.ExpendableMaterial on cm.ExpendableMaterialId equals m.Id
@@ -53,7 +50,22 @@ namespace car_service.API.Services
                 MaterialPrice = m.Price
             }).ToList();
             return Summing(id, check);
+        }
+
+        public List<CheckSum> GetAllWithService(int id)
+        {
             
+            List<Check> check = (from ch in _context.Check
+            join cs in _context.CheckServiceItem on ch.Id equals cs.CheckId
+            join s in _context.Service on cs.ServiceId equals s.Id
+            where id == ch.Id
+            select new Check()
+            {
+                Id = ch.Id,
+                ServiceName = s.Name,
+                ServicePrice = s.Price
+            }).ToList();
+            return Summing(id, check);
         }
 
         public List<CheckSum> Summing(int id, List<Check> check)
@@ -79,22 +91,6 @@ namespace car_service.API.Services
                 return new List<CheckSum>();
             }
         }
-        public List<CheckSum> GetAllWithService(int id)
-        {
-            
-            List<Check> check = (from ch in _context.Check
-            join cs in _context.CheckServiceItem on ch.Id equals cs.CheckId
-            join s in _context.Service on cs.ServiceId equals s.Id
-            where id == ch.Id
-            select new Check()
-            {
-                Id = ch.Id,
-                ServiceName = s.Name,
-                ServicePrice = s.Price
-            }).ToList();
-            return Summing(id, check);
-        }
-
         public List<CheckSum> GetAll(int id)
         {
             
